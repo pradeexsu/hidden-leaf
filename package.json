@@ -1,0 +1,29 @@
+{
+  "name": "hidden-leaf",
+  "version": "1.0.0",
+  "description": "A Village that gives you shinobi",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pradeexsu/hidden-leaf.git"
+  },
+  "keywords": [
+    "shinobi",
+    "hidden-leaf",
+    "akatski",
+    "naruto",
+    "sasuke"
+  ],
+  "author": "Pradeep Suthar <pradeexsu@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pradeexsu/hidden-leaf/issues"
+  },
+  "homepage": "https://github.com/pradeexsu/hidden-leaf#readme",
+  "dependencies": {
+    "unique-random-array": "^3.0.0"
+  }
+}
