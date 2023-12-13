@@ -1,3 +1,13 @@
+I have configured minimal setup for FE/BE.
+
+(Java 21 + SpringBoot, PostgresSql, Docker, Render.com for deployment)
+https://github.com/pradeexsu/toh
+live: https://pradeex-java.onrender.com/posts/4
+
+(React 18 + TypeScript + Vite + Tailwind, Vercel for deployment)
+https://github.com/pradeexsu/hidden-leaf
+https://hidden-leaf-alpha.vercel.app/
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

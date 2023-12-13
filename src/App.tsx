@@ -1,35 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+// import reactLogo from "./assets/react.svg";
+// import viteLogo from "/vite.svg";
+import "./App.css";
+import TimeInput from "./components/TimeInput";
+import { BitCoinPriceResponse } from "./typings";
+import Chart from "chart.js/auto";
+import { CategoryScale } from "chart.js";
+import LineChart from "./components/LineChart";
+import dayjs from "dayjs";
+
+Chart.register(CategoryScale);
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [startTime, setStartTime] = useState<string>();
+  const [endTime, setEndTime] = useState<string>();
 
+  const [chartData, setChartData] = useState();
+
+  useEffect(() => {
+    fetch(
+      `https://pradeex-java.onrender.com/bitcoin?startTime=${startTime}:00&endTime=${endTime}:00`
+    )
+      .then((res) => res.json())
+      .then((res: BitCoinPriceResponse) => {
+        if (res?.success) {
+          const priceList = res?.data?.coinPriceList;
+          const labels = priceList.map((i) =>
+            dayjs(i.updatedAt).format("HH:mm:ss")
+          );
+
+          const priceChartData = {
+            labels: labels,
+            datasets: [
+              {
+                label: "United States Dollar",
+                data: priceList.map((instant) => instant.usdRate),
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                tension: 0.1,
+              },
+              {
+                label: "Euro",
+                data: priceList.map((instant) => instant.eurRate),
+                fill: false,
+                borderColor: "rgb(75, 8, 192)",
+                tension: 0.1,
+              },
+              {
+                label: "British Pound Sterling",
+                data: priceList.map((instant) => instant.gbpRate),
+                fill: false,
+                borderColor: "rgb(75, 192, 91)",
+                tension: 0.1,
+              },
+            ],
+          };
+          setChartData(priceChartData as any);
+        }
+      })
+      .catch();
+    console.log("====================================");
+    console.log(startTime, endTime);
+    console.log("====================================");
+  }, [startTime, endTime]);
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <TimeInput setStartTime={setStartTime} setEndTime={setEndTime} />
+      {chartData && <LineChart chartData={chartData} />}
     </>
-  )
+  );
 }
 
-export default App
+export default App;
