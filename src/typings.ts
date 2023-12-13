@@ -12,4 +12,8 @@ export interface CoinPriceList {
   gbpRate: number;
   eurRate: number;
   updatedAt: string;
+  cheapestCurrency: string;
+  cheapestRateInUsd: number;
+  expensiveCurrency: string;
+  expensiveRateInUsd: number;
 }
