@@ -30,7 +30,7 @@ function LineChart({ chartData }: any) {
         options={{
           plugins: {
             legend: {
-              display: false,
+              display: true,
             },
           },
         }}

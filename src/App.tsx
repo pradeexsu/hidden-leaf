@@ -12,11 +12,8 @@ function App() {
   const [chartData, setChartData] = useState();
 
   const buildLineChartData = (priceList: CoinPriceList[]) => {
-    const labels = priceList.map(
-      (i) =>
-        dayjs(i.updatedAt).format("HH:mm:ss") +
-        `Cheapest Currency : ${i.cheapestCurrency}\nCheapest Rate In USD : ${i.cheapestRateInUsd}\nExpensive Currency : ${i.expensiveCurrency}\nExpensive Rate In USD : ${i.expensiveRateInUsd}`
-    );
+    const labels = priceList.map((i) => dayjs(i.updatedAt).format("HH:mm"));
+    // `Cheapest Currency : ${i.cheapestCurrency}\nCheapest Rate In USD : ${i.cheapestRateInUsd}\nExpensive Currency : ${i.expensiveCurrency}\nExpensive Rate In USD : ${i.expensiveRateInUsd}`
 
     const priceChartData = {
       labels: labels,
@@ -24,6 +21,7 @@ function App() {
         {
           label: "United States Dollar",
           data: priceList.map((instant) => instant.usdRate),
+
           fill: false,
           borderColor: "rgb(75, 192, 192)",
           tension: 0.1,
@@ -53,9 +51,7 @@ function App() {
       .then((res) => res.json())
       .then((res: BitCoinPriceResponse) => {
         if (res?.success) {
-          const priceChartData = buildLineChartData(
-            res?.data?.coinPriceList.slice(1, 10)
-          );
+          const priceChartData = buildLineChartData(res?.data?.coinPriceList);
           setChartData(priceChartData);
         }
       })
