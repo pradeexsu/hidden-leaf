@@ -51,7 +51,9 @@ function App() {
       .then((res) => res.json())
       .then((res: BitCoinPriceResponse) => {
         if (res?.success) {
-          const priceChartData = buildLineChartData(res?.data?.coinPriceList);
+          const priceChartData = buildLineChartData(
+            res?.data?.coinPriceList
+          ) as any;
           setChartData(priceChartData);
         }
       })
