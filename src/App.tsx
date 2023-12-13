@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "/vite.svg";
 import "./App.css";
 import TimeInput from "./components/TimeInput";
 import { BitCoinPriceResponse } from "./typings";
-import Chart from "chart.js/auto";
-import { CategoryScale } from "chart.js";
 import LineChart from "./components/LineChart";
 import dayjs from "dayjs";
-
-Chart.register(CategoryScale);
 
 function App() {
   const [startTime, setStartTime] = useState<string>();
